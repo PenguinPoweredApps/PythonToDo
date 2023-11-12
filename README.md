@@ -7,12 +7,13 @@ The ToDo App is a simple and intuitive desktop application designed to help user
 ## Features
 
 1. **Traditional To-Do List:**
-   - Create, edit, and delete tasks easily.
-   - Mark tasks as complete to keep track of your progress.
+   - Create tasks easily with a completion by date. Colour coded to ease identification at a glance.
+   - All tasks are stored in a SQLite database for reliable day to day use.
+   - Delete tasks on completion.
 
 2. **Email Integration:**
    - Receive tasks via email from co-workers or family members.
-   - Seamlessly add emailed tasks to your to-do list with a single click.
+   - Automatically adds emailed tasks to your to-do list.
 
 3. **Notification Sound:**
    - Get notified with a friendly sound on the receipt of new tasks.
@@ -46,8 +47,7 @@ python todo.py
 ## Usage
 
 1. **Adding Tasks:**
-   - Click on the "Add Task" button to add a new task.
-   - Fill in the task details and click "Add Task" to include it in your to-do list.
+   - Fill in the task details, completion date and click "Add Task" to include it in your to-do list.
 
 2. **Email Integration:**
    - Configure your email settings in the application.
@@ -58,12 +58,12 @@ python todo.py
    - Hourly reminders will keep you on track with your existing tasks.
 
 4. **Task Management:**
-   - Edit or delete tasks as needed.
-   - Mark tasks as complete to maintain an organized task list.
+   - Add or delete tasks as needed.
+   - Delete tasks on completion to maintain an organized task list.
 
 ## Configuration
 
-To set up your email integration, navigate to the settings section in the app. Enter your email credentials and configure the desired notification settings.
+To set up your email integration, navigate to the .env section in the app. Enter your email credentials and mail server address.
 
 ## Contributing
 
@@ -75,6 +75,6 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## Contact
 
-For any inquiries or assistance, please contact the project maintainer at [your-email@example.com](mailto:your-email@example.com).
+For any inquiries or assistance, please contact the project maintainer at [info@penguinpowered.co.uk](mailto:info@penguinpowered.co.uk).
 
 Happy task managing! 🚀
