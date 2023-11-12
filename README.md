@@ -31,7 +31,7 @@ The ToDo App is a simple and intuitive desktop application designed to help user
 To run the ToDo App, ensure you have Python and PySide6 installed on your machine. You can install the necessary dependencies using the following command:
 
 ```bash
-pip install PySide6
+pip install PySide6 pygame dotenv
 ```
 
 Clone the ToDo App repository to your local machine:
