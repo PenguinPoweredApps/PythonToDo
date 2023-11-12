@@ -33,25 +33,25 @@ pip install PySide6
 Clone the ToDo App repository to your local machine:
 
 ```bash
-git clone https://github.com/your-username/todo-app.git
+git clone https://github.com/PenguinPoweredApps/PythonToDo.git
 cd todo-app
 ```
 
 Run the application:
 
 ```bash
-python main.py
+python todo.py
 ```
 
 ## Usage
 
 1. **Adding Tasks:**
-   - Click on the "+" button to add a new task.
-   - Fill in the task details and click "Add" to include it in your to-do list.
+   - Click on the "Add Task" button to add a new task.
+   - Fill in the task details and click "Add Task" to include it in your to-do list.
 
 2. **Email Integration:**
    - Configure your email settings in the application.
-   - Receive tasks by email and add them to your to-do list effortlessly.
+   - Receive tasks automatically by email effortlessly.
 
 3. **Notifications:**
    - Enjoy a notification sound on the receipt of new tasks.
