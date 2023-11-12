@@ -7,15 +7,18 @@ The ToDo App is a simple and intuitive desktop application designed to help user
 ## Features
 
 1. **Traditional To-Do List:**
+
    - Create tasks easily with a completion by date. Colour coded to ease identification at a glance.
    - All tasks are stored in a SQLite database for reliable day to day use.
    - Delete tasks on completion.
 
 2. **Email Integration:**
+
    - Receive tasks via email from co-workers or family members.
    - Automatically adds emailed tasks to your to-do list.
 
 3. **Notification Sound:**
+
    - Get notified with a friendly sound on the receipt of new tasks.
    - Hourly reminders for existing tasks to ensure nothing gets overlooked.
 
@@ -47,13 +50,16 @@ python todo.py
 ## Usage
 
 1. **Adding Tasks:**
+
    - Fill in the task details, completion date and click "Add Task" to include it in your to-do list.
 
 2. **Email Integration:**
-   - Configure your email settings in the application.
+
+   - Configure your email settings in the .env file.
    - Receive tasks automatically by email effortlessly.
 
 3. **Notifications:**
+
    - Enjoy a notification sound on the receipt of new tasks.
    - Hourly reminders will keep you on track with your existing tasks.
 
@@ -63,7 +69,12 @@ python todo.py
 
 ## Configuration
 
-To set up your email integration, navigate to the .env section in the app. Enter your email credentials and mail server address.
+To set up your email integration, navigate to the .env file in the app. Enter your email credentials and mail server address.
+Configure your email settings in a .env file, in the format as below.
+
+EMAIL_USER=username
+EMAIL_PASS=password
+IMAP_URL=imap.example.com
 
 ## Contributing
 
