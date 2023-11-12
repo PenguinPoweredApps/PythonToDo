@@ -1,13 +1,15 @@
 ToDo App
 
 Overview
+
 The ToDo App is a simple and intuitive desktop application designed to help users manage their tasks efficiently. Written in Python with PySide6, this app offers a traditional to-do list experience with an innovative twist — the ability to receive tasks via email from co-workers or family members. The application aims to streamline task management and enhance user productivity by providing timely notifications and a pleasant user experience.
 
 Features
-Traditional To-Do List:
 
+Traditional To-Do List:
 Create, edit, and delete tasks easily.
 Mark tasks as complete to keep track of your progress.
+
 Email Integration:
 
 Receive tasks via email from co-workers or family members.
