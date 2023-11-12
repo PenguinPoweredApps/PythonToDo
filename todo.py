@@ -105,7 +105,7 @@ class ToDoApp(QWidget):
 
         self.setLayout(self.layout)
         self.setWindowTitle("To-Do App")
-        self.resize(800, 600)
+        self.setFixedSize(800, 600)
 
     # Play a sound when a new task is added
     def play_sound(self):
