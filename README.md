@@ -38,7 +38,7 @@ Clone the ToDo App repository to your local machine:
 
 ```bash
 git clone https://github.com/PenguinPoweredApps/PythonToDo.git
-cd todo-app
+cd PythonToDo
 ```
 
 Run the application:
