@@ -5,6 +5,8 @@ import sqlite3
 import os
 import datetime
 import pygame
+import schedule
+import time
 from PySide6.QtWidgets import (
     QApplication,
     QWidget,
@@ -21,6 +23,10 @@ from PySide6.QtCore import QDateTime, QTimer
 from PySide6.QtGui import QColor
 from PySide6.QtGui import QIcon
 from dotenv import load_dotenv
+from datetime import datetime
+
+due_date = 1/1/2023
+current_date = datetime.now()
 
 # Load environment variables from .env file
 load_dotenv()
@@ -74,6 +80,9 @@ class ToDoApp(QWidget):
         self.conn.commit()
 
     def init_ui(self):
+        # Set the font size for the whole app
+        self.setStyleSheet("font-size: 18px;")
+        
         self.layout = QVBoxLayout()
 
         # Add Task input field
@@ -128,7 +137,7 @@ class ToDoApp(QWidget):
             if due_date:
                 due_date_obj = QDateTime.fromString(due_date, "dd/MM/yyyy").date()
                 if due_date_obj == current_date:
-                    fg_color = "orange"
+                    fg_color = "black"
                 elif due_date_obj < current_date:
                     fg_color = "red"
                 else:
@@ -136,7 +145,7 @@ class ToDoApp(QWidget):
             else:
                 fg_color = "green"
 
-            display_text = f"{task} (Added: {added_date})"
+            display_text = f"{task} - Added: {added_date}"
             if due_date:
                 display_text += f" | Due: {due_date}"
 
@@ -151,11 +160,6 @@ class ToDoApp(QWidget):
 
             self.tasks_list.addItem(list_item)
 
-            # Play notification every hour if there are tasks due
-            if due_date_obj == current_date:
-                if current_date.hour % 1 == 0:
-                    self.play_sound()
-
     def add_task(self):
         task = self.task_input.text()
         current_time = QDateTime.currentDateTime().toString("dd/MM/yyyy")
@@ -168,7 +172,7 @@ class ToDoApp(QWidget):
             self.conn.commit()
             self.load_tasks()
             self.task_input.clear()
-            # self.play_sound()
+            self.play_sound()
 
     def delete_task(self):
         current_item = self.tasks_list.currentItem()
@@ -246,6 +250,17 @@ class ToDoApp(QWidget):
             # If the user cancels, ignore the close event
             event.ignore()
 
+    def check_due_tasks(self):
+        if due_date == current_date:
+            self.play_sound()
+
+    def run_scheduler(self):
+        # Schedule the task check every hour
+        schedule.every().hour.at(":00").do(self.check_due_tasks)
+
+        while True:
+            schedule.run_pending()
+            time.sleep(1)
 
 def main():
     app = QApplication(sys.argv)
@@ -259,3 +274,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    ToDoApp.run_scheduler()
