@@ -15,6 +15,9 @@ from PySide6.QtWidgets import (
     QListWidgetItem,
     QDateEdit,
     QLabel,
+    QDialog,
+    QVBoxLayout,
+    QLineEdit,
     QMessageBox,
 )
 from PySide6.QtCore import QDateTime, QTimer
@@ -22,8 +25,9 @@ from PySide6.QtGui import QColor
 from PySide6.QtGui import QIcon
 from dotenv import load_dotenv
 from datetime import datetime
+from PySide6.QtCore import Qt
 
-due_date = 1/1/2023
+due_date = 1 / 1 / 2023
 current_date = datetime.now()
 
 # Load environment variables from .env file
@@ -44,6 +48,34 @@ def email_header_decode(header_text):
             for text, charset in decoded_header
         ]
     )
+
+
+class EditTaskDialog(QDialog):
+    def __init__(self, parent=None):
+        super(EditTaskDialog, self).__init__(parent)
+        self.setWindowTitle("Edit Task")
+        self.layout = QVBoxLayout()
+
+        self.task_input = QLineEdit(self)
+        self.layout.addWidget(self.task_input)
+
+        self.save_button = QPushButton("Save", self)
+        self.save_button.clicked.connect(self.accept)
+        self.layout.addWidget(self.save_button)
+
+        self.setLayout(self.layout)
+
+    def setTaskText(self, task_text):
+        self.task_input.setText(task_text)
+
+    def getEditedTask(self):
+        return self.task_input.text()
+
+    def resizeEvent(self, event):
+        # Adjust the size of the dialog if needed
+        desired_width = 400  # Set your desired width
+        desired_height = 200  # Set your desired height
+        self.resize(desired_width, desired_height)
 
 
 class ToDoApp(QWidget):
@@ -85,7 +117,7 @@ class ToDoApp(QWidget):
     def init_ui(self):
         # Set the font size for the whole app
         self.setStyleSheet("font-size: 18px;")
-        
+
         self.layout = QVBoxLayout()
 
         # Add Task input field
@@ -110,6 +142,11 @@ class ToDoApp(QWidget):
         self.add_btn = QPushButton("Add Task", self)
         self.add_btn.clicked.connect(self.add_task)
         self.layout.addWidget(self.add_btn)
+
+        # Add an "Edit" button to the UI in the init_ui method
+        self.edit_btn = QPushButton("Edit Selected Task", self)
+        self.edit_btn.clicked.connect(self.edit_task)
+        self.layout.addWidget(self.edit_btn)
 
         self.del_btn = QPushButton("Delete Selected Task", self)
         self.del_btn.clicked.connect(self.delete_task)
@@ -172,10 +209,27 @@ class ToDoApp(QWidget):
             self.task_input.clear()
             self.play_sound()
 
+    def edit_task(self):
+        current_item = self.tasks_list.currentItem()
+        if current_item:
+            task_text = current_item.text().split(" ADDED:")[0]
+
+            edit_dialog = EditTaskDialog(self)
+            edit_dialog.setTaskText(task_text)
+            if edit_dialog.exec_() == QDialog.Accepted:
+                new_task = edit_dialog.getEditedTask()
+                if new_task:
+                    self.cursor.execute(
+                        "UPDATE tasks SET task = ? WHERE task = ?",
+                        (new_task, task_text),
+                    )
+                    self.conn.commit()
+                    self.load_tasks()
+
     def delete_task(self):
         current_item = self.tasks_list.currentItem()
         if current_item:
-            task_text = current_item.text().split(" ADDED:")[0] 
+            task_text = current_item.text().split(" ADDED:")[0]
             self.cursor.execute("DELETE FROM tasks WHERE task = ?", (task_text,))
             self.conn.commit()
             self.load_tasks()
@@ -201,9 +255,9 @@ class ToDoApp(QWidget):
                 if "," in subject:
                     _, due_date_str = subject.split(",", 1)
                     due_date = (
-                        datetime.strptime(due_date_str.strip(), "%d/%M/%Y")
+                        datetime.strptime(due_date_str.strip(), "%d/%m/%Y")
                         .date()
-                        .strftime("%d/%M/%Y")
+                        .strftime("%d/%m/%Y")
                     )
                 self.add_task_from_email(task_body, due_date)
                 mail.store(email_num, "+FLAGS", "\\Seen")  # Mark as read
@@ -249,7 +303,7 @@ class ToDoApp(QWidget):
             event.ignore()
 
     def play_hourly_reminder(self):
-        hourly_reminder_sound = 'notification.wav'
+        hourly_reminder_sound = "notification.wav"
         pygame.mixer.music.load(hourly_reminder_sound)
         pygame.mixer.music.play()
 
@@ -257,6 +311,7 @@ class ToDoApp(QWidget):
         sound = "notification.wav"
         pygame.mixer.music.load(sound)
         pygame.mixer.music.play()
+
 
 def main():
     app = QApplication(sys.argv)
