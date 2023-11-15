@@ -5,8 +5,6 @@ import sqlite3
 import os
 import datetime
 import pygame
-import schedule
-import time
 from PySide6.QtWidgets import (
     QApplication,
     QWidget,
@@ -64,6 +62,11 @@ class ToDoApp(QWidget):
         # Initialize pygame mixer
         pygame.mixer.init()
 
+        # Initialize the QTimer for hourly reminders
+        self.hourly_timer = QTimer(self)
+        self.hourly_timer.timeout.connect(self.play_hourly_reminder)
+        self.hourly_timer.start(3600000)  # 3600000 milliseconds = 1 hour
+
     def init_db(self):
         self.conn = sqlite3.connect("todo.db")
         self.cursor = self.conn.cursor()
@@ -116,11 +119,6 @@ class ToDoApp(QWidget):
         self.setWindowTitle("To-Do App")
         self.setFixedSize(800, 600)
 
-    # Play a sound when a new task is added
-    def play_sound(self):
-        pygame.mixer.music.load("notification.wav")
-        pygame.mixer.music.play()
-
     def load_tasks(self):
         self.tasks_list.clear()
         current_date = QDateTime.currentDateTime().date()
@@ -145,9 +143,9 @@ class ToDoApp(QWidget):
             else:
                 fg_color = "green"
 
-            display_text = f"{task} - Added: {added_date}"
+            display_text = f"{task} ADDED: {added_date}"
             if due_date:
-                display_text += f" | Due: {due_date}"
+                display_text += f" | DUE: {due_date}"
 
             list_item = QListWidgetItem(display_text)
             list_item.setForeground(QColor(fg_color))
@@ -177,7 +175,7 @@ class ToDoApp(QWidget):
     def delete_task(self):
         current_item = self.tasks_list.currentItem()
         if current_item:
-            task_text = current_item.text().split(" (Added:")[0]
+            task_text = current_item.text().split(" ADDED:")[0] 
             self.cursor.execute("DELETE FROM tasks WHERE task = ?", (task_text,))
             self.conn.commit()
             self.load_tasks()
@@ -203,9 +201,9 @@ class ToDoApp(QWidget):
                 if "," in subject:
                     _, due_date_str = subject.split(",", 1)
                     due_date = (
-                        datetime.datetime.strptime(due_date_str.strip(), "%d/%m/%Y")
+                        datetime.strptime(due_date_str.strip(), "%d/%M/%Y")
                         .date()
-                        .strftime("%d/%m/%Y")
+                        .strftime("%d/%M/%Y")
                     )
                 self.add_task_from_email(task_body, due_date)
                 mail.store(email_num, "+FLAGS", "\\Seen")  # Mark as read
@@ -250,17 +248,15 @@ class ToDoApp(QWidget):
             # If the user cancels, ignore the close event
             event.ignore()
 
-    def check_due_tasks(self):
-        if due_date == current_date:
-            self.play_sound()
+    def play_hourly_reminder(self):
+        hourly_reminder_sound = 'notification.wav'
+        pygame.mixer.music.load(hourly_reminder_sound)
+        pygame.mixer.music.play()
 
-    def run_scheduler(self):
-        # Schedule the task check every hour
-        schedule.every().hour.at(":00").do(self.check_due_tasks)
-
-        while True:
-            schedule.run_pending()
-            time.sleep(1)
+    def play_sound(self):
+        sound = "notification.wav"
+        pygame.mixer.music.load(sound)
+        pygame.mixer.music.play()
 
 def main():
     app = QApplication(sys.argv)
@@ -274,4 +270,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-    ToDoApp.run_scheduler()
