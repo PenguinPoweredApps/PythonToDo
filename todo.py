@@ -216,7 +216,7 @@ class ToDoApp(QWidget):
 
             edit_dialog = EditTaskDialog(self)
             edit_dialog.setTaskText(task_text)
-            if edit_dialog.exec_() == QDialog.Accepted:
+            if edit_dialog.exec() == QDialog.Accepted:
                 new_task = edit_dialog.getEditedTask()
                 if new_task:
                     self.cursor.execute(
