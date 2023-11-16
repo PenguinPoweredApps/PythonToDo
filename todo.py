@@ -28,8 +28,8 @@ from datetime import datetime
 from PySide6.QtCore import Qt
 
 # Load Roboto font files
-# QFontDatabase.addApplicationFont("/fonts/Roboto-Regular.ttf")
-# QFontDatabase.addApplicationFont("/fonts/Roboto-Bold.ttf")
+# QFontDatabase.addApplicationFont("fonts/Roboto-Regular.ttf")
+# QFontDatabase.addApplicationFont("fonts/Roboto-Bold.ttf")
 
 due_date = 1 / 1 / 2023
 current_date = datetime.now()
