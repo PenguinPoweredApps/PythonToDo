@@ -28,7 +28,7 @@ The ToDo App is a simple and intuitive desktop application designed to help user
 
 ## Installation
 
-To run the ToDo App, ensure you have Python and PySide6 installed on your machine. You can install the necessary dependencies using the following command:
+To run the ToDo App, ensure you have Python, PySide6, PyGame and dotenv installed on your machine. You can install the necessary dependencies using the following command:
 
 ```bash
 pip install PySide6 pygame dotenv
@@ -64,13 +64,13 @@ python todo.py
    - Hourly reminders will keep you on track with your existing tasks.
 
 4. **Task Management:**
-   - Add or delete tasks as needed.
+   - Add, edit and delete tasks as needed.
    - Delete tasks on completion to maintain an organized task list.
 
 ## Configuration
 
 To set up your email integration, navigate to the .env file in the app. Enter your email credentials and mail server address.
-Configure your email settings in a .env file, in the format as below.
+To configure your email settings in the .env file, use the format below.
 
 EMAIL_USER=username
 EMAIL_PASS=password
