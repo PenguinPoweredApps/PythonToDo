@@ -62,6 +62,7 @@ python todo.py
 
    - Create an email to the recipient with a subject of todo, and a due by date as shown below. This has to be in the exact format.
      
+     
      todo, 1/1/2024
      
    - The actual task that needs carrying out is described in the body of the email
