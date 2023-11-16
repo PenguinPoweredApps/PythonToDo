@@ -21,11 +21,15 @@ from PySide6.QtWidgets import (
     QMessageBox,
 )
 from PySide6.QtCore import QDateTime, QTimer
-from PySide6.QtGui import QColor
+from PySide6.QtGui import QColor, QFont, QFontDatabase
 from PySide6.QtGui import QIcon
 from dotenv import load_dotenv
 from datetime import datetime
 from PySide6.QtCore import Qt
+
+# Load Roboto font files
+# QFontDatabase.addApplicationFont("/fonts/Roboto-Regular.ttf")
+# QFontDatabase.addApplicationFont("/fonts/Roboto-Bold.ttf")
 
 due_date = 1 / 1 / 2023
 current_date = datetime.now()
@@ -116,7 +120,9 @@ class ToDoApp(QWidget):
 
     def init_ui(self):
         # Set the font size for the whole app
-        self.setStyleSheet("font-size: 18px;")
+        # self.setStyleSheet("font-size: 16px;")
+        font = QFont("Roboto", 16)
+        self.setFont(font)
 
         self.layout = QVBoxLayout()
 
@@ -151,6 +157,32 @@ class ToDoApp(QWidget):
         self.del_btn = QPushButton("Delete Selected Task", self)
         self.del_btn.clicked.connect(self.delete_task)
         self.layout.addWidget(self.del_btn)
+
+        # Apply Nord color scheme
+        self.setStyleSheet(
+            """
+            QWidget {
+                font-size: 16px;
+                font-family: 'Roboto', sans-serif;
+                background-color: #2E3440; /* Polar Night 1 */
+                color: #D8DEE9; /* Snow Storm 1 */
+            }
+            QLineEdit, QDateEdit, QListWidget {
+                background-color: #3B4252; /* Polar Night 2 */
+                color: #D8DEE9; /* Snow Storm 1 */
+            }
+            QPushButton {
+                background-color: #88C0D0; /* Frost 1 */
+                color: #2E3440; /* Polar Night 1 */
+                border: none;
+                padding: 10px;
+                border-radius: 5px;
+            }
+            QPushButton:hover {
+                background-color: #81A1C1; /* Frost 2 */
+            }
+            """
+        )
 
         self.setLayout(self.layout)
         self.setWindowTitle("To-Do App")
