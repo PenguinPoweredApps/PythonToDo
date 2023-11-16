@@ -57,13 +57,19 @@ python todo.py
 
    - Configure your email settings in the .env file.
    - Receive tasks automatically by email effortlessly.
+  
+3. **To send an email task:**
 
-3. **Notifications:**
+   - Create an email to the recipient with a subject of todo, and a due by date as shown below. This has to be in the exact format.
+     todo, 1/1/2024 
+   - The actual task that needs carrying out is described in the body of the email
+
+4. **Notifications:**
 
    - Enjoy a notification sound on the receipt of new tasks.
    - Hourly reminders will keep you on track with your existing tasks.
 
-4. **Task Management:**
+5. **Task Management:**
    - Add, edit and delete tasks as needed.
    - Delete tasks on completion to maintain an organized task list.
 
