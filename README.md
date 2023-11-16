@@ -73,7 +73,9 @@ To set up your email integration, navigate to the .env file in the app. Enter yo
 To configure your email settings in the .env file, use the format below.
 
 EMAIL_USER=username
+
 EMAIL_PASS=password
+
 IMAP_URL=imap.example.com
 
 ## Contributing
