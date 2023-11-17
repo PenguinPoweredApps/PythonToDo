@@ -27,10 +27,6 @@ from dotenv import load_dotenv
 from datetime import datetime
 from PySide6.QtCore import Qt
 
-# Load Roboto font files
-# QFontDatabase.addApplicationFont("./fonts/Roboto-Regular.ttf")
-# QFontDatabase.addApplicationFont("./fonts/Roboto-Bold.ttf")
-
 due_date = 1 / 1 / 2023
 current_date = datetime.now()
 
@@ -86,6 +82,9 @@ class ToDoApp(QWidget):
     def __init__(self):
         super().__init__()
 
+        # Load custom font
+        self.load_custom_font() 
+
         # Initialize the database
         self.init_db()
 
@@ -118,9 +117,12 @@ class ToDoApp(QWidget):
         )
         self.conn.commit()
 
+    def load_custom_font(self):
+        # Specify the path to your custom font file
+        font_path = "fonts/Roboto-Regular.ttf"  # Replace with the actual path
+        QFontDatabase.addApplicationFont(font_path)
+
     def init_ui(self):
-        # Set the font size for the whole app
-        # self.setStyleSheet("font-size: 16px;")
         font = QFont("Roboto", 16)
         self.setFont(font)
 
@@ -161,7 +163,7 @@ class ToDoApp(QWidget):
         # Apply Nord color scheme
         self.setStyleSheet(
             """
-            QMainWindow {
+            QFrame {
                 font-size: 16px;
                 font-family: 'Roboto', sans-serif;
                 background-color: #2E3440; /* Polar Night 1 */
@@ -174,11 +176,15 @@ class ToDoApp(QWidget):
                 color: #D8DEE9; /* Snow Storm 1 */
             }
             QLineEdit, QDateEdit, QListWidget {
+                font-size: 16px;
+                font-family: 'Roboto', sans-serif;
                 background-color: #3B4252; /* Polar Night 2 */
                 color: #D8DEE9; /* Snow Storm 1 */
                 border: 1px solid #434C5E; /* Polar Night 3 */
             }
             QPushButton {
+                font-size: 16px;
+                font-family: 'Roboto', sans-serif;
                 background-color: #88C0D0; /* Frost 1 */
                 color: #2E3440; /* Polar Night 1 */
                 border: none;
