@@ -28,8 +28,8 @@ from datetime import datetime
 from PySide6.QtCore import Qt
 
 # Load Roboto font files
-# QFontDatabase.addApplicationFont("fonts/Roboto-Regular.ttf")
-# QFontDatabase.addApplicationFont("fonts/Roboto-Bold.ttf")
+# QFontDatabase.addApplicationFont("./fonts/Roboto-Regular.ttf")
+# QFontDatabase.addApplicationFont("./fonts/Roboto-Bold.ttf")
 
 due_date = 1 / 1 / 2023
 current_date = datetime.now()
@@ -211,7 +211,7 @@ class ToDoApp(QWidget):
             if due_date:
                 due_date_obj = QDateTime.fromString(due_date, "dd/MM/yyyy").date()
                 if due_date_obj == current_date:
-                    fg_color = "#D08770"
+                    fg_color = "#EBCB8B"
                 elif due_date_obj < current_date:
                     fg_color = "#BF616A"
                 else:
@@ -342,9 +342,10 @@ class ToDoApp(QWidget):
             event.ignore()
 
     def play_hourly_reminder(self):
-        hourly_reminder_sound = "notification.wav"
-        pygame.mixer.music.load(hourly_reminder_sound)
-        pygame.mixer.music.play()
+        if due_date == current_date:
+            hourly_reminder_sound = "notification.wav"
+            pygame.mixer.music.load(hourly_reminder_sound)
+            pygame.mixer.music.play()
 
     def play_sound(self):
         sound = "notification.wav"
