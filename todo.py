@@ -161,6 +161,12 @@ class ToDoApp(QWidget):
         # Apply Nord color scheme
         self.setStyleSheet(
             """
+            QFrame {
+                font-size: 16px;
+                font-family: 'Roboto', sans-serif;
+                background-color: #2E3440; /* Polar Night 1 */
+                color: #D8DEE9; /* Snow Storm 1 */
+            }
             QWidget {
                 font-size: 16px;
                 font-family: 'Roboto', sans-serif;
