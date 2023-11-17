@@ -170,6 +170,7 @@ class ToDoApp(QWidget):
             QLineEdit, QDateEdit, QListWidget {
                 background-color: #3B4252; /* Polar Night 2 */
                 color: #D8DEE9; /* Snow Storm 1 */
+                border: 1px solid #434C5E; /* Polar Night 3 */
             }
             QPushButton {
                 background-color: #88C0D0; /* Frost 1 */
@@ -196,21 +197,21 @@ class ToDoApp(QWidget):
         ).fetchall()
 
         # Define the alternating colors
-        color1 = QColor("#f2f2f2")
-        color2 = QColor("#e6e6e6")
+        color1 = QColor("#434C5E")
+        color2 = QColor("#4C566A")
 
         for index, row in enumerate(rows):
             task, added_date, due_date = row
             if due_date:
                 due_date_obj = QDateTime.fromString(due_date, "dd/MM/yyyy").date()
                 if due_date_obj == current_date:
-                    fg_color = "black"
+                    fg_color = "#D08770"
                 elif due_date_obj < current_date:
-                    fg_color = "red"
+                    fg_color = "#BF616A"
                 else:
-                    fg_color = "green"
+                    fg_color = "#A3BE8C"
             else:
-                fg_color = "green"
+                fg_color = "#A3BE8C"
 
             display_text = f"{task} ADDED: {added_date}"
             if due_date:
