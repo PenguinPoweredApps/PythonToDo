@@ -83,7 +83,7 @@ class ToDoApp(QWidget):
         super().__init__()
 
         # Load custom font
-        self.load_custom_font() 
+        self.load_custom_font()
 
         # Initialize the database
         self.init_db()
@@ -119,7 +119,7 @@ class ToDoApp(QWidget):
 
     def load_custom_font(self):
         # Specify the path to your custom font file
-        font_path = "fonts/Roboto-Regular.ttf"  # Replace with the actual path
+        font_path = "fonts/Roboto-Regular.ttf"
         QFontDatabase.addApplicationFont(font_path)
 
     def init_ui(self):
