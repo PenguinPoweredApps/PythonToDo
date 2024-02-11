@@ -57,14 +57,13 @@ python todo.py
 
    - Configure your email settings in the .env file.
    - Receive tasks automatically by email effortlessly.
-  
+
 3. **To send an email task:**
 
-   - Create an email to the recipient with a subject of todo, and a due by date as shown below. This has to be in the exact format.
-     
-     
+   - Create an email for the recipient with a subject of todo, and a due by date as shown below. This has to be in the exact format.
+
      todo, 1/1/2024
-     
+
    - The actual task that needs carrying out is described in the body of the email
 
 4. **Notifications:**
@@ -78,7 +77,7 @@ python todo.py
 
 ## Configuration
 
-To set up your email integration, navigate to the .env file in the app. Enter your email credentials and mail server address.
+To set up your email integration, create a .env file in the app ( please include the . it's not a typo the file name should read .env ). Enter your email credentials and mail server address.
 To configure your email settings in the .env file, use the format below.
 
 EMAIL_USER=username
