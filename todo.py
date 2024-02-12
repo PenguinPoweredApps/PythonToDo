@@ -27,7 +27,7 @@ from dotenv import load_dotenv
 from datetime import datetime
 from PySide6.QtCore import Qt
 
-due_date = 1 / 1 / 2023
+due_date = 1 / 1 / 2024
 current_date = datetime.now()
 
 # Load environment variables from .env file
